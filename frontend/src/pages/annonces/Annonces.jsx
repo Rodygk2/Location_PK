@@ -107,6 +107,36 @@ function Annonces() {
                         Meublé
                     </button>
 
+                    {/* Filtre eau incluse */}
+                    <button
+                        onClick={() => setFiltres(prev => ({
+                            ...prev,
+                            eau_incluse: prev.eau_incluse === '1' ? '' : '1'
+                        }))}
+                        className={`px-4 py-1.5 rounded-full text-sm border transition
+              ${filtres.eau_incluse === '1'
+                                ? 'bg-primary text-white border-primary'
+                                : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
+                            }`}
+                    >
+                        Eau incluse
+                    </button>
+
+                    {/* Filtre electricité incluse */}
+                    <button
+                        onClick={() => setFiltres(prev => ({
+                            ...prev,
+                            electricite_incluse: prev.electricite_incluse === '1' ? '' : '1'
+                        }))}
+                        className={`px-4 py-1.5 rounded-full text-sm border transition
+              ${filtres.electricite_incluse === '1'
+                                ? 'bg-primary text-white border-primary'
+                                : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
+                            }`}
+                    >
+                        Electricité incluse
+                    </button>
+
                     {/* Filtre prix max */}
                     <select
                         value={filtres.prix_max}

@@ -4,7 +4,14 @@ use App\Http\Controllers\Api\Annonce\AnnonceController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Admin\AdminController;
 use App\Http\Controllers\Api\Locataire\LocataireController;
+use App\Http\Controllers\Api\Proprietaire\ProfilController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Paiement\PaiementController;
+
+// Webhook — public (appelé par FedaPay)
+Route::post('/paiements/webhook', [PaiementController::class, 'webhook']);
+
+
 
 // ─── Routes publiques ─────────────────────────────────────────────────────────
 Route::prefix('auth')->group(function () {
@@ -23,12 +30,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me',      [AuthController::class, 'me']);
 
     // ── Routes LOCATAIRE uniquement ──────────────────────────────────────────
-    Route::middleware('role:locataire')->prefix('locataire')->group(function () {
+    Route::middleware(['auth:sanctum', 'role:locataire'])->prefix('locataire')->group(function () {
         // Les routes locataire seront ajoutées ici progressivement
             Route::post('/demandes',               [LocataireController::class, 'faireDemandeLocation']);
             Route::get('/demandes',                [LocataireController::class, 'mesDemandes']);
             Route::put('/demandes/{id}/annuler',   [LocataireController::class, 'annulerDemande']);
             Route::post('/avis',                   [LocataireController::class, 'laisserAvis']);
+
+            Route::post('/demandes', [PaiementController::class, 'creerDemande']);
+            Route::get('/demandes', [PaiementController::class, 'mesDemandes']);
+            Route::get('/paiements', [PaiementController::class, 'historique']);
+    });
+
+    Route::middleware(['auth:sanctum', 'role:proprietaire'])
+    ->prefix('proprietaire')
+    ->group(function () {
+        // Profil — accessible même sans CNI vérifiée
+        Route::get('/profil', [ProfilController::class, 'show']);
+        Route::put('/profil', [ProfilController::class, 'updateProfil']);
+        Route::post('/profil/cni', [ProfilController::class, 'uploadCni']);
     });
 
     // ── Routes PROPRIÉTAIRE uniquement ───────────────────────────────────────
@@ -46,6 +66,8 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/demandes',                    [AnnonceController::class, 'demandesRecues']);
             Route::put('/demandes/{id}/accepter',      [AnnonceController::class, 'accepterDemande']);
             Route::put('/demandes/{id}/refuser',       [AnnonceController::class, 'refuserDemande']);
+        
+
     });
 
     // ── Routes ADMIN uniquement ───────────────────────────────────────────────
@@ -60,6 +82,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/annonces/en-attente',                 [AdminController::class, 'annoncesEnAttente']);
             Route::put('/annonces/{id}/publier',               [AdminController::class, 'publierAnnonce']);
             Route::put('/annonces/{id}/suspendre',             [AdminController::class, 'suspendreAnnonce']);
+            Route::get('/proprietaires/{id}/cni',              [AdminController::class, 'voirCni']);
     });
 
     // ── Routes partagées (locataire + propriétaire) ───────────────────────────

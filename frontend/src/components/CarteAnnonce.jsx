@@ -53,6 +53,18 @@ function CarteAnnonce({ annonce }) {
                         ✓ Meublée
                     </span>
                 )}
+
+                {annonce.eau_incluse && (
+                    <span className="inline-block mt-2 bg-green-50 text-green-600 text-xs px-3 py-1 rounded-full">
+                        ✓ Eau incluse
+                    </span>
+                )}
+
+                {annonce.electricite_incluse && (
+                    <span className="inline-block mt-2 bg-green-50 text-green-600 text-xs px-3 py-1 rounded-full">
+                        ✓ Electricité incluse
+                    </span>
+                )}
             </div>
         </Link>
     )

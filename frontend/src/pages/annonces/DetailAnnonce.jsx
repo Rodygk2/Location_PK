@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { annonceService } from '../../services/annonceService'
+import FaireDemande from '../locataire/FaireDemande'
 
 const BACKEND_URL = 'http://localhost:8000'
 
@@ -103,6 +104,18 @@ function DetailAnnonce() {
                                 ✓ Meublée
                             </span>
                         )}
+
+                        {annonce.eau_incluse && (
+                            <span className="inline-block mt-2 bg-green-50 text-green-600 text-xs px-3 py-1 rounded-full">
+                                ✓ Eau incluse
+                            </span>
+                        )}
+
+                        {annonce.electricite_incluse && (
+                            <span className="inline-block mt-2 bg-green-50 text-green-600 text-xs px-3 py-1 rounded-full">
+                                ✓ Electricité incluse
+                            </span>
+                        )}
                     </div>
 
                     {/* Prix + Caution */}
@@ -147,9 +160,7 @@ function DetailAnnonce() {
                     )}
 
                     {/* Bouton contact */}
-                    <button className="w-full bg-primary text-white py-3 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition">
-                        Contacter le propriétaire
-                    </button>
+                    <FaireDemande annonce={annonce} />
 
                 </div>
             </div>

@@ -37,6 +37,15 @@ function Navbar() {
                             Mes annonces
                         </Link>
                     )}
+                    
+                    {isAuthenticated() && isProprietaire() && (
+                        <Link
+                            to="/mon-profil"
+                            className="text-white/80 hover:text-white text-sm transition"
+                        >
+                            Mon profil
+                        </Link>
+                    )}
 
                     {/* Lien admin */}
                     {isAuthenticated() && isAdmin() && (

@@ -161,11 +161,38 @@ class AdminController extends Controller
                 'total_proprietaires'  => User::role('proprietaire')->count(),
                 'proprietaires_non_verifies' => User::role('proprietaire')
                                                 ->where('cni_verifie', false)->count(),
+                'cni_non_verifies'    => \App\Models\User::where('cni_verifie', false)
+                                        ->whereNotNull('cni_path') // ← ajoute cette ligne
+                                        ->role('proprietaire')
+                                        ->count(),
                 'total_annonces'       => Annonce::count(),
                 'annonces_en_attente'  => Annonce::where('statut', 'en_attente')->count(),
                 'annonces_publiees'    => Annonce::where('statut', 'publiee')->count(),
                 'annonces_louees'      => Annonce::where('statut', 'louee')->count(),
             ],
+        ]);
+        
+    }
+
+    public function voirCni($id)
+    {
+        $user = \App\Models\User::findOrFail($id);
+
+        if (!$user->cni_path) {
+            abort(404, 'Aucune CNI soumise.');
+        }
+
+        $path = storage_path('app/public/' . $user->cni_path);
+
+        if (!\File::exists($path)) {
+            abort(404, 'Fichier introuvable.');
+        }
+
+        $mime = \File::mimeType($path);
+
+        return response()->file($path, [
+            'Content-Type' => $mime,
+            'Access-Control-Allow-Origin' => '*',
         ]);
     }
 }

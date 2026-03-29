@@ -15,6 +15,8 @@ function ModifierAnnonce() {
         type_chambre: '',
         prix: '',
         meublee: false,
+        eau_incluse: false,
+        electricite_incluse: false,
         periodicite: 'mensuel',
         nombre_pieces: '1',
         quartier: '',
@@ -34,6 +36,8 @@ function ModifierAnnonce() {
                     type_chambre: annonce.type_chambre || '',
                     prix: annonce.prix || '',
                     meublee: annonce.meublee || false,
+                    eau_incluse: annonce.eau_incluse || false,
+                    electricite_incluse: annonce.electricite_incluse || false,
                     periodicite: annonce.periodicite || 'mensuel',
                     nombre_pieces: String(annonce.nombre_pieces || '1'),
                     quartier: annonce.quartier || annonce.localisation?.quartier || '',
@@ -65,6 +69,8 @@ function ModifierAnnonce() {
             await annonceService.update(id, {
                 ...form,
                 meublee: form.meublee ? 1 : 0,
+                eau_incluse: form.eau_incluse ? 1 : 0,
+                electricite_incluse: form.electricite_incluse ? 1 : 0,
             })
             navigate('/mes-annonces')
         } catch (err) {
@@ -201,6 +207,29 @@ function ModifierAnnonce() {
                         />
                         <span className="text-sm text-gray-700">Chambre meublée</span>
                     </label>
+
+                    <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                            type="checkbox"
+                            name="eau_incluse"
+                            checked={form.eau_incluse}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-primary"
+                        />
+                        <span className="text-sm text-gray-700">Eau incluse</span>
+                    </label>
+
+                    <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                            type="checkbox"
+                            name="electricite_incluse"
+                            checked={form.electricite_incluse}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-primary"
+                        />
+                        <span className="text-sm text-gray-700">Electricité incluse</span>
+                    </label>
+
                 </div>
 
                 {/* Localisation */}

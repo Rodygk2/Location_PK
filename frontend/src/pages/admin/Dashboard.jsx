@@ -218,10 +218,27 @@ function Dashboard() {
                                     <p className="text-gray-400 text-sm">📞 {proprio.telephone}</p>
                                 </div>
                                 {proprio.cni_path && (
-                                    <a href={`${BACKEND_URL}/storage/${proprio.cni_path}`} target="_blank" rel="noreferrer" className="text-primary text-sm underline flex-shrink-0">
-                                        Voir CNI
-                                    </a>
-                                )}
+
+                                   <a href = {`${BACKEND_URL}/api/admin/proprietaires/${proprio.id}/cni`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-primary text-sm underline flex-shrink-0"
+                                onClick={e => {
+                                    e.preventDefault()
+                                    fetch(`${BACKEND_URL}/api/admin/proprietaires/${proprio.id}/cni`, {
+                                        headers: {
+                                            Authorization: `Bearer ${localStorage.getItem('token')}`
+                                        }
+                                    })
+                                        .then(res => res.blob())
+                                        .then(blob => {
+                                            const url = URL.createObjectURL(blob)
+                                            window.open(url, '_blank')
+                                        })
+                                }}>
+                                Voir CNI
+                            </a>
+                        )}
                                 <button onClick={() => handleValiderCni(proprio.id)} className="bg-green-50 text-green-600 hover:bg-green-100 px-4 py-1.5 rounded-lg text-sm font-medium transition flex-shrink-0">
                                     ✓ Valider CNI
                                 </button>

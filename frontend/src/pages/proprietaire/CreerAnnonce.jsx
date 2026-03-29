@@ -13,6 +13,8 @@ function CreerAnnonce() {
         type_chambre: '',
         prix: '',
         meublee: false,
+        eau_incluse: false,      // ← nouveau
+        electricite_incluse: false, // ← nouveau
         periodicite: 'mensuel',   // ← nouveau
         nombre_pieces: '1',        // ← nouveau
         quartier: '',
@@ -180,6 +182,30 @@ function CreerAnnonce() {
                             className="w-4 h-4 accent-primary"
                         />
                         <span className="text-sm text-gray-700">Chambre meublée</span>
+                    </label>
+
+                    {/* Eau incluse */}
+                    <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                            type="checkbox"
+                            name="eau_incluse"
+                            checked={form.eau_incluse}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-primary"
+                        />
+                        <span className="text-sm text-gray-700">💧 Eau incluse</span>
+                    </label>
+
+                    {/* Électricité incluse */}
+                    <label className="flex items-center gap-3 cursor-pointer">
+                        <input
+                            type="checkbox"
+                            name="electricite_incluse"
+                            checked={form.electricite_incluse}
+                            onChange={handleChange}
+                            className="w-4 h-4 accent-primary"
+                        />
+                        <span className="text-sm text-gray-700">⚡ Électricité incluse</span>
                     </label>
                 </div>
 

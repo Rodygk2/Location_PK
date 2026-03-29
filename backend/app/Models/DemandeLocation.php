@@ -1,38 +1,30 @@
 <?php
-// app/Models/DemandeLocation.php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DemandeLocation extends Model
 {
-    protected $table = 'demande_locations';
+    protected $table = 'demande_location';
 
     protected $fillable = [
-        'annonce_id',
-        'locataire_id',
-        'statut',
-        'message',
-        'date_souhaitee',
+        'annonce_id', 'locataire_id', 'statut',
+        'moyen_paiement', 'date_entree_souhaitee', 'message',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'date_souhaitee' => 'date',
-        ];
-    }
-
-    // Relations
-    public function annonce(): BelongsTo
+    public function annonce(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Annonce::class);
     }
 
-    public function locataire(): BelongsTo
+    public function locataire(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'locataire_id');
+    }
+
+    public function paiements(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Paiement::class, 'demande_id');
     }
 }

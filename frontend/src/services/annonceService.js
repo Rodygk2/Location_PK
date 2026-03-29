@@ -17,8 +17,8 @@ export const annonceService = {
         Object.entries(data).forEach(([key, val]) => {
             if (key === 'photos') {
                 val.forEach(file => formData.append('photos[]', file))
-            } else if (key === 'meublee') {
-                formData.append(key, val ? '1' : '0')  // ← converti en 1/0
+            } else if (['meublee', 'eau_incluse', 'electricite_incluse'].includes(key)) {
+                formData.append(key, val ? '1' : '0')
             } else {
                 formData.append(key, val)
             }

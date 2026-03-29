@@ -9,6 +9,9 @@ import MesAnnonces from './pages/proprietaire/MesAnnonces'
 import CreerAnnonce from './pages/proprietaire/CreerAnnonce'
 import ModifierAnnonce from './pages/proprietaire/ModifierAnnonce'
 import Dashboard from './pages/admin/Dashboard'
+import MonProfil from './pages/proprietaire/MonProfil'
+import MesDemandes from './pages/locataire/MesDemandes'
+
 
 
 
@@ -66,6 +69,25 @@ const router = createBrowserRouter([
                 <Layout><Dashboard /></Layout></PrivateRoute>
         )
     },
+
+    {
+        path: '/mon-profil',
+        element: (
+            <PrivateRoute roles={['proprietaire']}>
+                <Layout><MonProfil /></Layout>
+            </PrivateRoute>
+        )
+    },
+
+    {
+        path: '/mes-demandes',
+        element: (
+            <PrivateRoute roles={['locataire']}>
+                <Layout><MesDemandes /></Layout>
+            </PrivateRoute>
+        )
+    },
+
 ])
 
 export default router

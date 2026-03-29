@@ -52,6 +52,13 @@ class AnnonceController extends Controller
             $query->where('meublee', filter_var($request->meublee, FILTER_VALIDATE_BOOLEAN));
         }
 
+        if ($request->filled('eau_incluse')) {
+            $query->where('eau_incluse', filter_var($request->eau_incluse, FILTER_VALIDATE_BOOLEAN));
+        }
+
+        if ($request->filled('electricite_incluse')) {
+            $query->where('electricite_incluse', filter_var($request->electricite_incluse, FILTER_VALIDATE_BOOLEAN));
+        }
         // ── Tri ──────────────────────────────────────────────────────────────
         $query->orderBy('created_at', 'desc');
 
