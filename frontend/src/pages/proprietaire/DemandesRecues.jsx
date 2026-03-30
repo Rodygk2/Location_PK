@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { paiementService } from '../../services/paiementService'
+import { contratService } from '../../services/contratService'
 
 const BACKEND_URL = 'http://localhost:8000'
 
@@ -43,6 +44,8 @@ function DemandesRecues() {
     const handleAccepter = async (id) => {
         try {
             await paiementService.accepterDemande(id)
+            // Générer le contrat automatiquement
+            await contratService.generer(id)
             charger()
         } catch {
             alert('Erreur lors de l\'acceptation')

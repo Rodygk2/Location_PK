@@ -70,6 +70,13 @@ function Navbar() {
                             Demandes reçues
                         </Link>
                     )}
+
+                    {/*Lien Locataire et propriétaire */}
+                    {isAuthenticated() && (isLocataire() || isProprietaire()) && (
+                        <Link to="/mes-contrats" className="text-white/80 hover:text-white text-sm transition">
+                            Mes contrats
+                        </Link>
+                    )}
                 </div>
 
                 {/* Partie droite : connecté ou non */}

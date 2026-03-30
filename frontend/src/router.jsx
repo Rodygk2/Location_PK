@@ -12,6 +12,10 @@ import Dashboard from './pages/admin/Dashboard'
 import MonProfil from './pages/proprietaire/MonProfil'
 import MesDemandes from './pages/locataire/MesDemandes'
 import DemandesRecues from './pages/proprietaire/DemandesRecues'
+import MesContrats from './pages/contrats/MesContrats'
+import DetailContrat from './pages/contrats/DetailContrat'
+
+
 
 
 const router = createBrowserRouter([
@@ -103,6 +107,24 @@ const router = createBrowserRouter([
         element: (
             <PrivateRoute roles={['proprietaire']}>
                 <Layout><DemandesRecues /></Layout>
+            </PrivateRoute>
+        )
+    },
+
+    {
+        path: '/mes-contrats',
+        element: (
+            <PrivateRoute roles={['locataire', 'proprietaire']}>
+                <Layout><MesContrats /></Layout>
+            </PrivateRoute>
+        )
+    },
+
+    {
+        path: '/contrats/:id',
+        element: (
+            <PrivateRoute roles={['locataire', 'proprietaire']}>
+                <Layout><DetailContrat /></Layout>
             </PrivateRoute>
         )
     },
