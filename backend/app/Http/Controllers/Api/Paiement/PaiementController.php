@@ -80,60 +80,65 @@ class PaiementController extends Controller
     /**
      * Initier un paiement FedaPay
      */
-    private function initierPaiementFedaPay(DemandeLocation $demande, Annonce $annonce): JsonResponse
-    {
-        $locataire = auth()->user();
-        $montantCaution = $annonce->caution;
+private function initierPaiementFedaPay(DemandeLocation $demande, Annonce $annonce): JsonResponse
+{
+    $locataire = auth()->user();
+    $montantCaution = $annonce->caution;
 
-        try {
-            $transaction = Transaction::create([
-                'description' => "Caution - {$annonce->titre}",
-                'amount'      => $montantCaution,
-                'currency'    => ['iso' => 'XOF'],
-                'callback_url'=> config('app.url') . '/api/paiements/webhook',
-                'customer'    => [
-                    'firstname' => $locataire->prenom,
-                    'lastname'  => $locataire->nom,
-                    'email'     => $locataire->email,
-                    'phone_number' => [
-                        'number'  => $locataire->telephone,
-                        'country' => 'BJ',
-                    ],
+    // Nettoyer le numéro de téléphone — garder seulement les chiffres
+    $telephone = preg_replace('/[^0-9]/', '', $locataire->telephone);
+
+    try {
+        $transaction = Transaction::create([
+            'description' => "Caution - {$annonce->titre}",
+            'amount'      => (int) $montantCaution,
+            'currency'    => ['iso' => 'XOF'],
+            'callback_url'=> config('app.url') . '/api/paiements/webhook',
+            'customer'    => [
+                'firstname' => $locataire->prenom,
+                'lastname'  => $locataire->nom,
+                'email'     => $locataire->email,
+                'phone_number' => [
+                    'number'  => $telephone,
+                    'country' => 'BJ',
                 ],
-            ]);
+            ],
+        ]);
 
-            $token = $transaction->generateToken();
+        $token = $transaction->generateToken();
 
-            // Sauvegarder le paiement
-            Paiement::create([
-                'demande_id'            => $demande->id,
-                'locataire_id'          => $locataire->id,
-                'type'                  => 'caution',
-                'montant'               => $montantCaution,
-                'moyen'                 => 'fedapay',
-                'fedapay_transaction_id'=> $transaction->id,
-                'fedapay_token'         => $token->token,
-            ]);
+        Paiement::create([
+            'demande_id'            => $demande->id,
+            'locataire_id'          => $locataire->id,
+            'type'                  => 'caution',
+            'montant'               => $montantCaution,
+            'moyen'                 => 'fedapay',
+            'fedapay_transaction_id'=> $transaction->id,
+            'fedapay_token'         => $token->token,
+        ]);
 
-            return response()->json([
-                'success'      => true,
-                'message'      => 'Transaction initiée.',
-                'data'         => [
-                    'demande_id'    => $demande->id,
-                    'payment_url'   => $token->url,
-                    'token'         => $token->token,
-                ],
-            ]);
+        return response()->json([
+            'success'    => true,
+            'message'    => 'Transaction initiée.',
+            'data'       => [
+                'demande_id'  => $demande->id,
+                'payment_url' => $token->url,
+                'token'       => $token->token,
+            ],
+        ]);
 
-        } catch (\Exception $e) {
-            $demande->delete();
-            return response()->json([
-                'success' => false,
-                'message' => 'Erreur lors de l\'initiation du paiement : ' . $e->getMessage(),
-            ], 500);
-        }
+    } catch (\Exception $e) {
+        $demande->delete();
+
+        // Logger l'erreur complète pour debug
+        \Log::error('FedaPay error: ' . $e->getMessage());
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Erreur FedaPay : ' . $e->getMessage(),
+        ], 500);
     }
-
+}
     /**
      * Webhook FedaPay — appelé automatiquement après paiement
      * POST /api/paiements/webhook
