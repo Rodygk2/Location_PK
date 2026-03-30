@@ -7,6 +7,9 @@ use App\Http\Controllers\Api\Locataire\LocataireController;
 use App\Http\Controllers\Api\Proprietaire\ProfilController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Paiement\PaiementController;
+use App\Http\Controllers\Api\Contrat\ContratController;
+
+
 
 // Webhook — public (appelé par FedaPay)
 Route::post('/paiements/webhook', [PaiementController::class, 'webhook']);
@@ -88,5 +91,15 @@ Route::middleware('auth:sanctum')->group(function () {
     // ── Routes partagées (locataire + propriétaire) ───────────────────────────
     Route::middleware('role:locataire,proprietaire')->group(function () {
         // Messages, contrats, etc.
+    });
+    //Routes relatif au contrat entre les deux parties
+    Route::middleware(['auth:sanctum'])
+    ->prefix('contrats')
+    ->group(function () {
+        Route::get('/', [ContratController::class, 'mesContrats']);
+        Route::get('/{id}', [ContratController::class, 'show']);
+        Route::post('/generer/{demande_id}', [ContratController::class, 'generer']);
+        Route::post('/{id}/signer', [ContratController::class, 'signer']);
+        Route::get('/{id}/pdf', [ContratController::class, 'telecharger']);
     });
 });
