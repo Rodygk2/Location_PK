@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 
 function Navbar() {
-    const { user, logout, isAuthenticated, isProprietaire, isAdmin } = useAuthStore()
+    const { user, logout, isAuthenticated,isLocataire, isProprietaire, isAdmin } = useAuthStore()
     const navigate = useNavigate()
 
     const handleLogout = async () => {
@@ -54,6 +54,20 @@ function Navbar() {
                             className="text-white/80 hover:text-white text-sm transition"
                         >
                             Dashboard
+                        </Link>
+                    )}
+
+                    {/* Lien locataire */}
+                    {isAuthenticated() && isLocataire() && (
+                        <Link to="/mes-demandes" className="text-white/80 hover:text-white text-sm transition">
+                            Mes demandes
+                        </Link>
+                    )}
+
+                    {/* Lien propriétaire */}
+                    {isAuthenticated() && isProprietaire() && (
+                        <Link to="/demandes-recues" className="text-white/80 hover:text-white text-sm transition">
+                            Demandes reçues
                         </Link>
                     )}
                 </div>

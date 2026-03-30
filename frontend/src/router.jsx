@@ -11,8 +11,7 @@ import ModifierAnnonce from './pages/proprietaire/ModifierAnnonce'
 import Dashboard from './pages/admin/Dashboard'
 import MonProfil from './pages/proprietaire/MonProfil'
 import MesDemandes from './pages/locataire/MesDemandes'
-
-
+import DemandesRecues from './pages/proprietaire/DemandesRecues'
 
 
 const router = createBrowserRouter([
@@ -84,6 +83,26 @@ const router = createBrowserRouter([
         element: (
             <PrivateRoute roles={['locataire']}>
                 <Layout><MesDemandes /></Layout>
+            </PrivateRoute>
+        )
+    },
+
+    // Locataire
+    {
+        path: '/mes-demandes',
+        element: (
+            <PrivateRoute roles={['locataire']}>
+                <Layout><MesDemandes /></Layout>
+            </PrivateRoute>
+        )
+    },
+
+    // Propriétaire
+    {
+        path: '/demandes-recues',
+        element: (
+            <PrivateRoute roles={['proprietaire']}>
+                <Layout><DemandesRecues /></Layout>
             </PrivateRoute>
         )
     },

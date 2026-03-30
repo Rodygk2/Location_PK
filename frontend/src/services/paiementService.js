@@ -25,4 +25,22 @@ export const paiementService = {
         const res = await api.put(`/locataire/demandes/${id}/annuler`)
         return res.data
     },
+    // Demandes reçues (propriétaire)
+    async demandesRecues() {
+        const res = await api.get('/proprietaire/demandes')
+        return res.data
+    },
+
+    // Accepter une demande
+    async accepterDemande(id) {
+        const res = await api.put(`/proprietaire/demandes/${id}/accepter`)
+        return res.data
+    },
+
+    // Refuser une demande
+    async refuserDemande(id) {
+        const res = await api.put(`/proprietaire/demandes/${id}/refuser`)
+        return res.data
+    },
+
 }
