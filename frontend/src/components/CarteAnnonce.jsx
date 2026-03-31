@@ -20,12 +20,12 @@ function CarteAnnonce({ annonce }) {
             <div className="h-48 bg-indigo-100 flex items-center justify-center overflow-hidden">
                 {imageUrl ? (
                     <img
-                        src={imageUrl}
+                        src={`${BACKEND_URL}/storage/${photos[photoActive]?.url}`}
                         alt={annonce.titre}
                         className="w-full h-full object-cover"
                     />
                 ) : (
-                    <span className="text-5xl">🏠</span>
+                    <span className="text-5xl"></span>
                 )}
             </div>
 
@@ -35,7 +35,7 @@ function CarteAnnonce({ annonce }) {
                     {annonce.titre}
                 </h2>
                 <p className="text-gray-400 text-sm mb-3">
-                    📍 {quartier}, Parakou
+                     {quartier}, Parakou
                 </p>
 
                 <div className="flex items-center justify-between">

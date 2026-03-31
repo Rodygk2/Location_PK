@@ -52,7 +52,7 @@ function Register() {
                                 name="nom"
                                 value={form.nom}
                                 onChange={handleChange}
-                                placeholder="Kéita"
+                                placeholder="KEITA"
                                 required
                                 className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary"
                             />
@@ -93,7 +93,7 @@ function Register() {
                             name="telephone"
                             value={form.telephone}
                             onChange={handleChange}
-                            placeholder="97 00 00 00"
+                            placeholder="01 97 00 00 00"
                             required
                             className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-primary"
                         />
@@ -162,7 +162,7 @@ function Register() {
                                         : 'border-gray-200 text-gray-500 hover:border-gray-300'
                                     }`}
                             >
-                                🔑 Locataire
+                                 Locataire
                             </button>
                             <button
                                 type="button"
@@ -173,7 +173,7 @@ function Register() {
                                         : 'border-gray-200 text-gray-500 hover:border-gray-300'
                                     }`}
                             >
-                                🏠 Propriétaire
+                                 Propriétaire
                             </button>
                         </div>
                     </div>

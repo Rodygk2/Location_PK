@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { annonceService } from '../../services/annonceService'
 import FaireDemande from '../locataire/FaireDemande'
+import BoutonsContact from '../../components/BoutonsContact'
 
 const BACKEND_URL = 'http://localhost:8000'
 
@@ -72,7 +73,7 @@ function DetailAnnonce() {
                             )}
                         </>
                     ) : (
-                        <span className="text-7xl">🏠</span>
+                        <span className="text-7xl"></span>
                     )}
                 </div>
 
@@ -85,7 +86,7 @@ function DetailAnnonce() {
                                 {annonce.titre}
                             </h1>
                             <p className="text-gray-400">
-                                📍 {quartier}, Parakou
+                                 {quartier}, Parakou
                             </p>
                         </div>
                         {/* Badge statut */}
@@ -156,6 +157,19 @@ function DetailAnnonce() {
                             <p className="text-gray-400 text-sm">
                                 📞 {annonce.proprietaire.telephone}
                             </p>
+                        </div>
+                    )}
+
+                    {/* Contacter le propriétaire */}
+                    {annonce.proprietaire && (
+                        <div className="mt-4">
+                            <p className="text-sm text-gray-500 mb-2">Contacter le propriétaire :</p>
+                            <BoutonsContact
+                                nom={annonce.proprietaire.nom}
+                                prenom={annonce.proprietaire.prenom}
+                                telephone={annonce.proprietaire.telephone}
+                                message={`Bonjour, je suis intéressé(e) par votre annonce "${annonce.titre}" sur ChambreParakou.`}
+                            />
                         </div>
                     )}
 

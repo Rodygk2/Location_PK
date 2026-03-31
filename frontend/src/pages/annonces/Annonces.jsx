@@ -47,11 +47,18 @@ function Annonces() {
     return (
         <div>
             {/* Hero */}
-            <div className="bg-indigo-50 py-10 px-4 text-center">
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            <div
+                className="relative py-16 px-4 text-center"
+                style={{
+                    backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=80')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
+            >
+                <h1 className="text-4xl font-bold text-white mb-3">
                     Trouvez votre chambre à Parakou
                 </h1>
-                <p className="text-gray-500 mb-6">
+                <p className="text-white/80 mb-8 text-lg">
                     Des annonces vérifiées, sans intermédiaire
                 </p>
 

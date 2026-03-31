@@ -96,7 +96,7 @@ function MesAnnonces() {
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
-                                        <span className="text-3xl">🏠</span>
+                                        <span className="text-3xl"></span>
                                     )}
                                 </div>
 
@@ -106,7 +106,7 @@ function MesAnnonces() {
                                         {annonce.titre}
                                     </h2>
                                     <p className="text-gray-400 text-sm">
-                                        📍 {quartier} · {Number(annonce.prix).toLocaleString('fr-FR')} FCFA/mois
+                                         {quartier} · {Number(annonce.prix).toLocaleString('fr-FR')} FCFA/mois
                                     </p>
                                     <span className={`inline-block mt-1 text-xs px-3 py-0.5 rounded-full ${STATUT_STYLE[annonce.statut] || 'bg-gray-50 text-gray-500'}`}>
                                         {annonce.statut?.replace('_', ' ')}

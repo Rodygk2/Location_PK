@@ -90,7 +90,7 @@ function FaireDemande({ annonce }) {
                                     : 'border-gray-200 text-gray-500 hover:border-gray-300'
                                 }`}
                         >
-                            💵 Espèces
+                             Espèces
                         </button>
                         <button
                             type="button"
@@ -100,7 +100,7 @@ function FaireDemande({ annonce }) {
                                     : 'border-gray-200 text-gray-500 hover:border-gray-300'
                                 }`}
                         >
-                            📱 Mobile Money
+                             Mobile Money
                         </button>
                     </div>
                 </div>

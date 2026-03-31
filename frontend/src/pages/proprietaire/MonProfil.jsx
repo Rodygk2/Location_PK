@@ -149,7 +149,7 @@ function MonProfil() {
                             <p className="text-gray-400 mb-1">Statut</p>
                             <p className={`font-medium ${profil?.statut === 'actif' ? 'text-green-600' : 'text-red-500'
                                 }`}>
-                                {profil?.statut === 'actif' ? '✅ Actif' : '⛔ Suspendu'}
+                                {profil?.statut === 'actif' ? ' Actif' : ' Suspendu'}
                             </p>
                         </div>
                     </div>
@@ -218,10 +218,10 @@ function MonProfil() {
                             : 'bg-red-50 text-red-500'
                     }`}>
                     {profil?.cni_verifie
-                        ? '✅ CNI vérifiée — vous pouvez publier des annonces'
+                        ? ' CNI vérifiée — vous pouvez publier des annonces'
                         : profil?.cni_path
-                            ? '⏳ CNI soumise — en attente de validation'
-                            : '❌ Aucune CNI soumise — veuillez uploader votre CNI'}
+                            ? ' CNI soumise — en attente de validation'
+                            : ' Aucune CNI soumise — veuillez uploader votre CNI'}
                 </div>
 
                 {/* Aperçu CNI existante */}

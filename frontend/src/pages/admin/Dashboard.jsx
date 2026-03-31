@@ -162,7 +162,7 @@ function Dashboard() {
                 <div className="space-y-4">
                     {annonces.length === 0 ? (
                         <div className="text-center py-16 text-gray-400">
-                            ✅ Aucune annonce en attente
+                             Aucune annonce en attente
                         </div>
                     ) : (
                         annonces.map(annonce => {
@@ -174,12 +174,12 @@ function Dashboard() {
                                         {photo ? (
                                             <img src={`${BACKEND_URL}/storage/${photo}`} alt={annonce.titre} className="w-full h-full object-cover" />
                                         ) : (
-                                            <span className="text-2xl">🏠</span>
+                                            <span className="text-2xl"></span>
                                         )}
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <h3 className="font-semibold text-gray-800 truncate">{annonce.titre}</h3>
-                                        <p className="text-gray-400 text-sm">📍 {quartier} · {Number(annonce.prix).toLocaleString('fr-FR')} FCFA/mois</p>
+                                        <p className="text-gray-400 text-sm"> {quartier} · {Number(annonce.prix).toLocaleString('fr-FR')} FCFA/mois</p>
                                         <p className="text-gray-400 text-xs mt-0.5">Par {annonce.proprietaire?.prenom} {annonce.proprietaire?.nom}</p>
                                     </div>
                                     <div className="flex gap-2 flex-shrink-0">
@@ -202,7 +202,7 @@ function Dashboard() {
                 <div className="space-y-4">
                     {proprietaires.length === 0 ? (
                         <div className="text-center py-16 text-gray-400">
-                            ✅ Aucune CNI en attente
+                             Aucune CNI en attente
                         </div>
                     ) : (
                         proprietaires.map(proprio => (
@@ -240,7 +240,7 @@ function Dashboard() {
                             </a>
                         )}
                                 <button onClick={() => handleValiderCni(proprio.id)} className="bg-green-50 text-green-600 hover:bg-green-100 px-4 py-1.5 rounded-lg text-sm font-medium transition flex-shrink-0">
-                                    ✓ Valider CNI
+                                     Valider CNI
                                 </button>
                             </div>
                         ))
@@ -302,7 +302,7 @@ function Dashboard() {
                                                 : 'bg-green-50 text-green-600 hover:bg-green-100'
                                             }`}
                                     >
-                                        {user.statut === 'actif' ? '⛔ Suspendre' : '✅ Activer'}
+                                        {user.statut === 'actif' ? ' Suspendre' : ' Activer'}
                                     </button>
                                 )}
                             </div>

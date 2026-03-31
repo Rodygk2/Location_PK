@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { paiementService } from '../../services/paiementService'
 import { contratService } from '../../services/contratService'
+import BoutonsContact from '../../components/BoutonsContact'
 
 const BACKEND_URL = 'http://localhost:8000'
 
@@ -11,9 +12,9 @@ const STATUT_STYLE = {
 }
 
 const STATUT_LABEL = {
-    en_attente: '⏳ En attente',
-    acceptee: '✅ Acceptée',
-    refusee: '❌ Refusée',
+    en_attente: ' En attente',
+    acceptee: ' Acceptée',
+    refusee: ' Refusée',
 }
 
 function DemandesRecues() {
@@ -103,6 +104,16 @@ function DemandesRecues() {
                                                 📞 {locataire?.telephone} · {locataire?.email}
                                             </p>
                                         </div>
+
+                                        {/* Contacter propriétaire */}
+                                        <div className="mt-2">
+                                            <BoutonsContact
+                                                nom={locataire?.nom}
+                                                prenom={locataire?.prenom}
+                                                telephone={locataire?.telephone}
+                                                message={`Bonjour ${locataire?.prenom}, concernant votre demande de location sur ChambreParakou.`}
+                                            />
+                                        </div>
                                     </div>
                                     <span className={`text-xs px-3 py-1 rounded-full font-medium ${STATUT_STYLE[demande.statut]}`}>
                                         {STATUT_LABEL[demande.statut]}
@@ -112,23 +123,23 @@ function DemandesRecues() {
                                 {/* Annonce concernée */}
                                 <div className="bg-gray-50 rounded-xl p-3 mb-4">
                                     <p className="text-sm font-medium text-gray-700">
-                                        🏠 {annonce?.titre}
+                                         {annonce?.titre}
                                     </p>
                                     <p className="text-gray-400 text-xs mt-1">
-                                        📍 {annonce?.quartier} · 💰 {Number(annonce?.prix).toLocaleString('fr-FR')} FCFA/mois
+                                         {annonce?.quartier} ·  {Number(annonce?.prix).toLocaleString('fr-FR')} FCFA/mois
                                     </p>
                                 </div>
 
                                 {/* Détails */}
                                 <div className="flex flex-wrap gap-4 text-sm mb-3">
                                     <span className="text-gray-500">
-                                        💳 <span className="font-medium">
-                                            {demande.moyen_paiement === 'fedapay' ? '📱 Mobile Money' : '💵 Espèces'}
+                                         <span className="font-medium">
+                                            {demande.moyen_paiement === 'fedapay' ? ' Mobile Money' : ' Espèces'}
                                         </span>
                                     </span>
                                     {demande.date_entree_souhaitee && (
                                         <span className="text-gray-500">
-                                            📅 Entrée souhaitée : <span className="font-medium">
+                                             Entrée souhaitée : <span className="font-medium">
                                                 {new Date(demande.date_entree_souhaitee).toLocaleDateString('fr-FR')}
                                             </span>
                                         </span>
@@ -143,9 +154,9 @@ function DemandesRecues() {
                                                 ? 'bg-red-50 text-red-500'
                                                 : 'bg-yellow-50 text-yellow-600'
                                         }`}>
-                                        {paiement.statut === 'complete' && '✅ Caution payée via Mobile Money'}
-                                        {paiement.statut === 'echoue' && '❌ Paiement Mobile Money échoué'}
-                                        {paiement.statut === 'en_attente' && '⏳ Paiement en attente'}
+                                        {paiement.statut === 'complete' && ' Caution payée via Mobile Money'}
+                                        {paiement.statut === 'echoue' && ' Paiement Mobile Money échoué'}
+                                        {paiement.statut === 'en_attente' && ' Paiement en attente'}
                                     </div>
                                 )}
 
@@ -163,13 +174,13 @@ function DemandesRecues() {
                                             onClick={() => handleAccepter(demande.id)}
                                             className="bg-green-50 text-green-600 hover:bg-green-100 px-5 py-2 rounded-lg text-sm font-medium transition"
                                         >
-                                            ✓ Accepter
+                                             Accepter
                                         </button>
                                         <button
                                             onClick={() => handleRefuser(demande.id)}
                                             className="bg-red-50 text-red-500 hover:bg-red-100 px-5 py-2 rounded-lg text-sm font-medium transition"
                                         >
-                                            ✗ Refuser
+                                             Refuser
                                         </button>
                                     </div>
                                 )}

@@ -38,14 +38,7 @@ function Navbar() {
                         </Link>
                     )}
                     
-                    {isAuthenticated() && isProprietaire() && (
-                        <Link
-                            to="/mon-profil"
-                            className="text-white/80 hover:text-white text-sm transition"
-                        >
-                            Mon profil
-                        </Link>
-                    )}
+
 
                     {/* Lien admin */}
                     {isAuthenticated() && isAdmin() && (
@@ -75,6 +68,15 @@ function Navbar() {
                     {isAuthenticated() && (isLocataire() || isProprietaire()) && (
                         <Link to="/mes-contrats" className="text-white/80 hover:text-white text-sm transition">
                             Mes contrats
+                        </Link>
+                    )}
+
+                    {isAuthenticated() && isProprietaire() && (
+                        <Link
+                            to="/mon-profil"
+                            className="text-white/80 hover:text-white text-sm transition"
+                        >
+                            Mon profil
                         </Link>
                     )}
                 </div>

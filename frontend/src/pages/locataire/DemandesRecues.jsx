@@ -113,24 +113,24 @@ function DemandesRecues() {
                                 {/* Annonce concernée */}
                                 <div className="bg-gray-50 rounded-xl p-3 mb-4">
                                     <p className="text-sm font-medium text-gray-700">
-                                        🏠 {annonce?.titre}
+                                         {annonce?.titre}
                                     </p>
                                     <p className="text-gray-400 text-xs mt-1">
-                                        📍 {annonce?.quartier} ·
-                                        💰 {Number(annonce?.prix).toLocaleString('fr-FR')} FCFA/mois
+                                         {annonce?.quartier} ·
+                                         {Number(annonce?.prix).toLocaleString('fr-FR')} FCFA/mois
                                     </p>
                                 </div>
 
                                 {/* Détails demande */}
                                 <div className="flex flex-wrap gap-4 text-sm mb-3">
                                     <span className="text-gray-500">
-                                        💳 <span className="font-medium">
-                                            {demande.moyen_paiement === 'fedapay' ? '📱 Mobile Money' : '💵 Espèces'}
+                                         <span className="font-medium">
+                                            {demande.moyen_paiement === 'fedapay' ? ' Mobile Money' : ' Espèces'}
                                         </span>
                                     </span>
                                     {demande.date_entree_souhaitee && (
                                         <span className="text-gray-500">
-                                            📅 Entrée souhaitée : <span className="font-medium">
+                                             Entrée souhaitée : <span className="font-medium">
                                                 {new Date(demande.date_entree_souhaitee).toLocaleDateString('fr-FR')}
                                             </span>
                                         </span>
@@ -145,9 +145,9 @@ function DemandesRecues() {
                                                 ? 'bg-red-50 text-red-500'
                                                 : 'bg-yellow-50 text-yellow-600'
                                         }`}>
-                                        {paiement.statut === 'complete' && '✅ Caution payée via Mobile Money'}
-                                        {paiement.statut === 'echoue' && '❌ Paiement Mobile Money échoué'}
-                                        {paiement.statut === 'en_attente' && '⏳ Paiement en attente'}
+                                        {paiement.statut === 'complete' && ' Caution payée via Mobile Money'}
+                                        {paiement.statut === 'echoue' && ' Paiement Mobile Money échoué'}
+                                        {paiement.statut === 'en_attente' && ' Paiement en attente'}
                                     </div>
                                 )}
 

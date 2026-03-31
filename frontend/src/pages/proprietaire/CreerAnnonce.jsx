@@ -205,7 +205,7 @@ function CreerAnnonce() {
                             onChange={handleChange}
                             className="w-4 h-4 accent-primary"
                         />
-                        <span className="text-sm text-gray-700">⚡ Électricité incluse</span>
+                        <span className="text-sm text-gray-700"> Électricité incluse</span>
                     </label>
                 </div>
 

@@ -11,9 +11,9 @@ const STATUT_STYLE = {
 }
 
 const STATUT_LABEL = {
-    en_attente: '⏳ En attente',
-    acceptee: '✅ Acceptée',
-    refusee: '❌ Refusée',
+    en_attente: ' En attente',
+    acceptee: ' Acceptée',
+    refusee: ' Refusée',
 }
 
 function MesDemandes() {
@@ -85,7 +85,7 @@ function MesDemandes() {
                                                 className="w-full h-full object-cover"
                                             />
                                         ) : (
-                                            <span className="text-3xl">🏠</span>
+                                            <span className="text-3xl"> </span>
                                         )}
                                     </div>
 
@@ -101,28 +101,42 @@ function MesDemandes() {
                                         </div>
 
                                         <p className="text-gray-400 text-sm mt-1">
-                                            📍 {annonce?.quartier}, Parakou
+                                             {annonce?.quartier}, Parakou
                                         </p>
 
                                         <div className="flex flex-wrap gap-4 mt-2 text-sm">
                                             <span className="text-gray-500">
-                                                💰 Caution : <span className="font-medium text-primary">
+                                                 Caution : <span className="font-medium text-primary">
                                                     {Number(annonce?.caution).toLocaleString('fr-FR')} FCFA
                                                 </span>
                                             </span>
                                             <span className="text-gray-500">
-                                                💳 Paiement : <span className="font-medium">
+                                                 Paiement : <span className="font-medium">
                                                     {demande.moyen_paiement === 'fedapay' ? '📱 Mobile Money' : '💵 Espèces'}
                                                 </span>
                                             </span>
                                             {demande.date_entree_souhaitee && (
                                                 <span className="text-gray-500">
-                                                    📅 Entrée souhaitée : <span className="font-medium">
+                                                     Entrée souhaitée : <span className="font-medium">
                                                         {new Date(demande.date_entree_souhaitee).toLocaleDateString('fr-FR')}
                                                     </span>
                                                 </span>
                                             )}
                                         </div>
+                                        import BoutonsContact from '../../components/BoutonsContact'
+
+                                        {/* Ajoute après la date d'entrée souhaitée */}
+                                        {demande.statut === 'acceptee' && annonce?.proprietaire && (
+                                            <div className="mt-3">
+                                                <p className="text-xs text-gray-400 mb-1">Contacter le propriétaire :</p>
+                                                <BoutonsContact
+                                                    nom={annonce.proprietaire?.nom}
+                                                    prenom={annonce.proprietaire?.prenom}
+                                                    telephone={annonce.proprietaire?.telephone}
+                                                    message={`Bonjour, je suis votre locataire pour "${annonce?.titre}" sur ChambreParakou.`}
+                                                />
+                                            </div>
+                                        )}
 
                                         {/* Statut paiement */}
                                         {paiement && (
@@ -132,9 +146,9 @@ function MesDemandes() {
                                                         ? 'bg-red-50 text-red-500'
                                                         : 'bg-yellow-50 text-yellow-600'
                                                 }`}>
-                                                {paiement.statut === 'complete' && '✅ Caution payée'}
-                                                {paiement.statut === 'echoue' && '❌ Paiement échoué'}
-                                                {paiement.statut === 'en_attente' && '⏳ Paiement en attente'}
+                                                {paiement.statut === 'complete' && ' Caution payée'}
+                                                {paiement.statut === 'echoue' && ' Paiement échoué'}
+                                                {paiement.statut === 'en_attente' && ' Paiement en attente'}
                                             </div>
                                         )}
 
