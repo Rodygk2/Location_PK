@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { paiementService } from '../../services/paiementService'
 
-const BACKEND_URL = 'http://localhost:8000'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
 const STATUT_STYLE = {
     en_attente: 'bg-yellow-50 text-yellow-600',

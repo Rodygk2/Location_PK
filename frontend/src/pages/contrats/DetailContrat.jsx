@@ -4,7 +4,7 @@ import { contratService } from '../../services/contratService'
 import { useAuthStore } from '../../store/authStore'
 import SignatureCanvas from 'react-signature-canvas'
 
-const BACKEND_URL = 'http://localhost:8000'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
 function DetailContrat() {
     const { id } = useParams()

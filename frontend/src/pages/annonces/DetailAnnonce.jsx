@@ -4,7 +4,7 @@ import { annonceService } from '../../services/annonceService'
 import FaireDemande from '../locataire/FaireDemande'
 import BoutonsContact from '../../components/BoutonsContact'
 
-const BACKEND_URL = 'http://localhost:8000'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
 function DetailAnnonce() {
     const { id } = useParams()

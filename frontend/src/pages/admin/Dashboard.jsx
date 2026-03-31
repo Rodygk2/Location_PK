@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { adminService } from '../../services/adminService'
 
-const BACKEND_URL = 'http://localhost:8000'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'
 
 function Dashboard() {
     const [stats, setStats] = useState(null)
