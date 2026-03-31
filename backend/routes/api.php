@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Contrat\ContratController;
 
 
 
+Route::get('/ping', fn() => response()->json(['status' => 'ok']));
 // Webhook — public (appelé par FedaPay)
 Route::post('/paiements/webhook', [PaiementController::class, 'webhook']);
 
