@@ -13,10 +13,7 @@ function Annonces() {
     const [annonces, setAnnonces] = useState([])
     const [loading, setLoading] = useState(true)
     const [filtres, setFiltres] = useState({
-        quartier: '',
-        prix_max: '',
-        type_chambre: '',
-        meublee: '',
+        quartier: '', prix_max: '', type_chambre: '', meublee: '',
     })
 
     useEffect(() => {
@@ -32,8 +29,7 @@ function Annonces() {
                         : Array.isArray(res.data?.data) ? res.data.data
                             : []
                 setAnnonces(liste)
-            } catch (error) {
-                console.error('Erreur API:', error)
+            } catch {
                 setAnnonces([])
             } finally {
                 setLoading(false)
@@ -42,113 +38,66 @@ function Annonces() {
         charger()
     }, [filtres])
 
-    console.log('API URL:', import.meta.env.VITE_API_URL)
-
     return (
         <div>
             {/* Hero */}
             <div
-                className="relative py-16 px-4 text-center"
+                className="relative py-12 sm:py-16 px-4 text-center"
                 style={{
                     backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1600&q=80')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}
             >
-                <h1 className="text-4xl font-bold text-white mb-3">
+                <h1 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-3">
                     Trouvez votre chambre à Parakou
                 </h1>
-                <p className="text-white/80 mb-8 text-lg">
+                <p className="text-white/80 mb-6 text-sm sm:text-lg">
                     Des annonces vérifiées, sans intermédiaire
                 </p>
-
-                {/* Barre de recherche */}
                 <div className="max-w-xl mx-auto bg-white rounded-xl shadow-xl flex overflow-hidden">
                     <input
                         type="text"
                         placeholder="Rechercher par quartier..."
                         value={filtres.quartier}
                         onChange={e => setFiltres(prev => ({ ...prev, quartier: e.target.value }))}
-                        className="flex-1 px-4 py-3 text-sm focus:outline-none"
+                        className="flex-1 px-4 py-3 text-sm focus:outline-none min-w-0"
                     />
-                    <div className="bg-primary px-5 flex items-center text-white text-sm font-medium">
+                    <div className="bg-primary px-4 sm:px-5 flex items-center text-white text-sm font-medium whitespace-nowrap">
                         Chercher
                     </div>
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 py-8">
+            <div className="max-w-6xl mx-auto px-4 py-6 sm:py-8">
 
-                {/* Filtres */}
-                <div className="flex flex-wrap gap-3 mb-6 items-center">
-
-                    {/* Filtre type */}
-                    <div className="flex gap-2 flex-wrap">
-                        {TYPES.map(t => (
-                            <button
-                                key={t.value}
-                                onClick={() => setFiltres(prev => ({ ...prev, type_chambre: t.value }))}
-                                className={`px-4 py-1.5 rounded-full text-sm border transition
-                  ${filtres.type_chambre === t.value
-                                        ? 'bg-primary text-white border-primary'
-                                        : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
-                                    }`}
-                            >
-                                {t.label}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Filtre meublé */}
+                {/* Filtres — scroll horizontal sur mobile */}
+                <div className="flex gap-2 sm:gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+                    {TYPES.map(t => (
+                        <button
+                            key={t.value}
+                            onClick={() => setFiltres(prev => ({ ...prev, type_chambre: t.value }))}
+                            className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm border transition whitespace-nowrap flex-shrink-0 ${filtres.type_chambre === t.value
+                                    ? 'bg-primary text-white border-primary'
+                                    : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
+                                }`}
+                        >
+                            {t.label}
+                        </button>
+                    ))}
                     <button
-                        onClick={() => setFiltres(prev => ({
-                            ...prev,
-                            meublee: prev.meublee === '1' ? '' : '1'
-                        }))}
-                        className={`px-4 py-1.5 rounded-full text-sm border transition
-              ${filtres.meublee === '1'
+                        onClick={() => setFiltres(prev => ({ ...prev, meublee: prev.meublee === '1' ? '' : '1' }))}
+                        className={`px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm border transition whitespace-nowrap flex-shrink-0 ${filtres.meublee === '1'
                                 ? 'bg-primary text-white border-primary'
                                 : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
                             }`}
                     >
                         Meublé
                     </button>
-
-                    {/* Filtre eau incluse */}
-                    <button
-                        onClick={() => setFiltres(prev => ({
-                            ...prev,
-                            eau_incluse: prev.eau_incluse === '1' ? '' : '1'
-                        }))}
-                        className={`px-4 py-1.5 rounded-full text-sm border transition
-              ${filtres.eau_incluse === '1'
-                                ? 'bg-primary text-white border-primary'
-                                : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
-                            }`}
-                    >
-                        Eau incluse
-                    </button>
-
-                    {/* Filtre electricité incluse */}
-                    <button
-                        onClick={() => setFiltres(prev => ({
-                            ...prev,
-                            electricite_incluse: prev.electricite_incluse === '1' ? '' : '1'
-                        }))}
-                        className={`px-4 py-1.5 rounded-full text-sm border transition
-              ${filtres.electricite_incluse === '1'
-                                ? 'bg-primary text-white border-primary'
-                                : 'border-gray-200 text-gray-600 hover:border-primary hover:text-primary'
-                            }`}
-                    >
-                        Electricité incluse
-                    </button>
-
-                    {/* Filtre prix max */}
                     <select
                         value={filtres.prix_max}
                         onChange={e => setFiltres(prev => ({ ...prev, prix_max: e.target.value }))}
-                        className="border border-gray-200 rounded-full px-4 py-1.5 text-sm text-gray-600 focus:outline-none focus:border-primary"
+                        className="border border-gray-200 rounded-full px-3 sm:px-4 py-1.5 text-xs sm:text-sm text-gray-600 focus:outline-none focus:border-primary flex-shrink-0"
                     >
                         <option value="">Prix max</option>
                         <option value="20000">20 000 FCFA</option>
@@ -160,25 +109,19 @@ function Annonces() {
 
                 {/* Résultats */}
                 {loading ? (
-                    <div className="text-center py-20 text-gray-400">
-                        Chargement des annonces...
-                    </div>
+                    <div className="text-center py-20 text-gray-400">Chargement...</div>
                 ) : annonces.length === 0 ? (
                     <div className="text-center py-20">
                         <p className="text-gray-400 text-lg">Aucune annonce trouvée.</p>
-                        <p className="text-gray-300 text-sm mt-1">
-                            Essaie de modifier les filtres
-                        </p>
+                        <p className="text-gray-300 text-sm mt-1">Essaie de modifier les filtres</p>
                     </div>
                 ) : (
                     <>
                         <p className="text-gray-500 text-sm mb-4">
                             {annonces.length} annonce{annonces.length > 1 ? 's' : ''} trouvée{annonces.length > 1 ? 's' : ''}
                         </p>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {annonces.map(a => (
-                                <CarteAnnonce key={a.id} annonce={a} />
-                            ))}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                            {annonces.map(a => <CarteAnnonce key={a.id} annonce={a} />)}
                         </div>
                     </>
                 )}

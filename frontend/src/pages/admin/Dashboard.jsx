@@ -93,28 +93,28 @@ function Dashboard() {
 
             {/* Statistiques */}
             {stats && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div className="bg-white rounded-2xl shadow-xl p-5 text-center">
-                        <p className="text-3xl font-bold text-primary">{stats.total_annonces ?? 0}</p>
-                        <p className="text-gray-400 text-sm mt-1">Annonces publiées</p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+                    <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-5 text-center">
+                        <p className="text-2xl sm:text-3xl font-bold text-primary">{stats.total_annonces ?? 0}</p>
+                        <p className="text-gray-400 text-xs sm:text-sm mt-1">Annonces publiées</p>
                     </div>
-                    <div className="bg-white rounded-2xl shadow-xl p-5 text-center">
-                        <p className="text-3xl font-bold text-yellow-500">{stats.annonces_en_attente ?? 0}</p>
-                        <p className="text-gray-400 text-sm mt-1">En attente</p>
+                    <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-5 text-center">
+                        <p className="text-2xl sm:text-3xl font-bold text-yellow-500">{stats.annonces_en_attente ?? 0}</p>
+                        <p className="text-gray-400 text-xs sm:text-sm mt-1">En attente</p>
                     </div>
-                    <div className="bg-white rounded-2xl shadow-xl p-5 text-center">
-                        <p className="text-3xl font-bold text-green-500">{stats.total_users ?? 0}</p>
-                        <p className="text-gray-400 text-sm mt-1">Utilisateurs</p>
+                    <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-5 text-center">
+                        <p className="text-2xl sm:text-3xl font-bold text-green-500">{stats.total_users ?? 0}</p>
+                        <p className="text-gray-400 text-xs sm:text-sm mt-1">Utilisateurs</p>
                     </div>
-                    <div className="bg-white rounded-2xl shadow-xl p-5 text-center">
-                        <p className="text-3xl font-bold text-red-500">{stats.cni_non_verifies ?? 0}</p>
-                        <p className="text-gray-400 text-sm mt-1">CNI à vérifier</p>
+                    <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-5 text-center">
+                        <p className="text-2xl sm:text-3xl font-bold text-red-500">{stats.cni_non_verifies ?? 0}</p>
+                        <p className="text-gray-400 text-xs sm:text-sm mt-1">CNI à vérifier</p>
                     </div>
                 </div>
             )}
 
             {/* Onglets */}
-            <div className="flex gap-3 mb-6 flex-wrap">
+            <div className="flex gap-2 sm:gap-3 mb-5 sm:mb-6 overflow-x-auto pb-1">
                 <button
                     onClick={() => setOnglet('annonces')}
                     className={`px-5 py-2 rounded-xl text-sm font-medium transition ${onglet === 'annonces'
